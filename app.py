@@ -16,8 +16,8 @@ app.secret_key = "123"  # needed for session cookies
 # ---------------------------------------------------------------------------
 QUESTIONS = [
     {
-        "prompt": "You enter a dive bar, and surprisingly see a fish bartending. <br>'Whenever you're done staring, let me know what you'd like.'",
-        "image": "images/fishbartender.jpg",
+        "prompt": "You enter a dive bar, and surprisingly see a fish bartending. 'Whenever you're done staring, let me know what you'd like.'",
+        "image": "https://64.media.tumblr.com/c33b43c78a568e15bbbce0176850f7c2/a30f804636352668-e5/s1280x1920/a886c01c94c3ee8243dc6317afa5cdfde0b3d474.jpg",
         "options": [
             ("Sit down and order your drink", "orion"),
             ("Call over a friend to see the freakshow", "ursa"),
@@ -238,10 +238,10 @@ a.start-btn, button.start-btn {
 INTRO_HTML = """
 <!doctype html><html><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Which Constellation Are You?</title><style>{{ css }}</style></head>
+<title>What Kind Of Phantom Hunter Are You?</title><style>{{ css }}</style></head>
 <body><div class="card">
   <p class="eyebrow">A 5-question quiz</p>
-  <h1>Which Constellation Are You?</h1>
+  <h1>What Kind Of Phantom Hunter Are You?</h1>
   <p class="sub">Answer honestly. It takes about a minute.</p>
   <a class="start-btn" href="{{ url_for('question', qnum=0) }}">Start</a>
 </div></body></html>
