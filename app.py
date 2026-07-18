@@ -225,8 +225,9 @@ INTRO_HTML = """
 <title>What Kind Of Phantom Hunter Are You?</title><style>{{ css }}</style></head>
 <body><div class="card">
   <p class="eyebrow">A short choose your own adventure quiz</p>
-  <h1>Which Constellation Are You?</h1>
-  <p class="sub">Answer honestly. It takes about a minute.</p>
+  <h1>What Kind Of Phantom Hunter Are You?</h1>
+  <img src="imgs\fishbartender.jpg" alt="fish bartender">
+  <p class="sub"> </p>
   <a class="start-btn" href="{{ url_for('question', qnum=0) }}">Start</a>
 </div></body></html>
 """
