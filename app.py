@@ -7,7 +7,7 @@ from flask import Flask, request, session, redirect, url_for, render_template_st
 import random
 
 app = Flask(__name__)
-app.secret_key = "replace-this-with-a-real-secret-key"  # needed for session cookies
+app.secret_key = "123"  # needed for session cookies
 
 # ---------------------------------------------------------------------------
 # Quiz content
@@ -101,12 +101,12 @@ RESULTS = {
 
 BASE_CSS = """
 :root {
-    --bg: #0b1224;
-    --bg-soft: #121a33;
-    --line: #253158;
-    --gold: #e8b95c;
-    --text: #eef1fb;
-    --text-dim: #9aa3c7;
+    --bg: #360568;
+    --bg-soft: #5B2A86;
+    --line: #7785AC;
+    --gold: #9AC6C5;
+    --text: #A5E6BA;
+    --text-dim: #9AC6C5;
 }
 * { box-sizing: border-box; }
 body {
@@ -311,6 +311,4 @@ def result():
 
 
 if __name__ == "__main__":
-    # host="0.0.0.0" makes it reachable from other devices on your network,
-    # which is useful for testing the QR code on your phone before deploying.
     app.run(host="0.0.0.0", port=5000, debug=True)
