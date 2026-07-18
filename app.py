@@ -10,20 +10,24 @@ app = Flask(__name__)
 app.secret_key = "123"  # needed for session cookies
 
 # ---------------------------------------------------------------------------
-# Quiz content
+# Quiz content — edit this section to make it your own quiz.
+# Each option maps to a constellation "code". Whichever code the person picks
+# most often determines their result.
 # ---------------------------------------------------------------------------
 QUESTIONS = [
     {
-        "prompt": "A plan falls apart the morning it's supposed to happen. You:",
+        "prompt": "You enter a dive bar, and surprisingly see a fish bartending. <br>'Whenever you're done staring, let me know what you'd like.'",
+        "image": "images/fishbartender.jpg",
         "options": [
-            ("Charge ahead with a new plan on the spot", "orion"),
-            ("Get everyone together to figure it out as a group", "ursa"),
-            ("Quietly rework the timeline until it fits", "draco"),
-            ("Turn it into a story worth telling later", "cass"),
+            ("Sit down and order your drink", "orion"),
+            ("Call over a friend to see the freakshow", "ursa"),
+            ("Sit down quietly while apologising, and then order a drink", "draco"),
+            ("Laugh it off, sit down, and start chatting with the fish", "cass"),
         ],
     },
     {
         "prompt": "Your ideal weekend involves:",
+        "image": "images/q2.jpg",
         "options": [
             ("Something physical — a hike, a match, a project with your hands", "orion"),
             ("A small gathering with people you trust", "ursa"),
@@ -33,6 +37,7 @@ QUESTIONS = [
     },
     {
         "prompt": "People come to you for:",
+        "image": "images/q3.jpg",
         "options": [
             ("A push to actually go do the thing", "orion"),
             ("Comfort and steady support", "ursa"),
@@ -42,6 +47,7 @@ QUESTIONS = [
     },
     {
         "prompt": "Your biggest strength is probably:",
+        "image": "images/q4.jpg",
         "options": [
             ("Courage", "orion"),
             ("Loyalty", "ursa"),
@@ -51,6 +57,7 @@ QUESTIONS = [
     },
     {
         "prompt": "A rival outshines you at something. Your first instinct:",
+        "image": "images/q5.jpg",
         "options": [
             ("Compete harder, immediately", "orion"),
             ("Check in on how everyone's feeling about it", "ursa"),
@@ -101,12 +108,12 @@ RESULTS = {
 
 BASE_CSS = """
 :root {
-    --bg: #360568;
-    --bg-soft: #5B2A86;
-    --line: #7785AC;
-    --gold: #9AC6C5;
-    --text: #A5E6BA;
-    --text-dim: #9AC6C5;
+    --bg: #0b1224;
+    --bg-soft: #121a33;
+    --line: #253158;
+    --gold: #e8b95c;
+    --text: #eef1fb;
+    --text-dim: #9aa3c7;
 }
 * { box-sizing: border-box; }
 body {
@@ -174,6 +181,15 @@ p.sub {
     background: var(--line);
 }
 .dot.filled { background: var(--gold); }
+.question-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    margin-bottom: 22px;
+    display: block;
+}
 form { display: flex; flex-direction: column; gap: 12px; }
 button.option {
     text-align: left;
@@ -222,12 +238,11 @@ a.start-btn, button.start-btn {
 INTRO_HTML = """
 <!doctype html><html><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>What Kind Of Phantom Hunter Are You?</title><style>{{ css }}</style></head>
+<title>Which Constellation Are You?</title><style>{{ css }}</style></head>
 <body><div class="card">
-  <p class="eyebrow">A short choose your own adventure quiz</p>
-  <h1>What Kind Of Phantom Hunter Are You?</h1>
-  <img src="imgs\fishbartender.jpg" alt="fish bartender">
-  <p class="sub"> </p>
+  <p class="eyebrow">A 5-question quiz</p>
+  <h1>Which Constellation Are You?</h1>
+  <p class="sub">Answer honestly. It takes about a minute.</p>
   <a class="start-btn" href="{{ url_for('question', qnum=0) }}">Start</a>
 </div></body></html>
 """
@@ -243,6 +258,9 @@ QUESTION_HTML = """
       <div class="dot {{ 'filled' if i <= qnum else '' }}"></div>
     {% endfor %}
   </div>
+  {% if question.image %}
+    <img class="question-image" src="{{ url_for('static', filename=question.image) }}" alt="">
+  {% endif %}
   <h1>{{ question.prompt }}</h1>
   <form method="POST" style="margin-top:20px;">
     {% for label, code in question.options %}
@@ -312,4 +330,6 @@ def result():
 
 
 if __name__ == "__main__":
+    # host="0.0.0.0" makes it reachable from other devices on your network,
+    # which is useful for testing the QR code on your phone before deploying.
     app.run(host="0.0.0.0", port=5000, debug=True)
