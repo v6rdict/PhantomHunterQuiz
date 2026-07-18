@@ -27,7 +27,7 @@ QUESTIONS = [
     },
     {
         "prompt": "Your ideal weekend involves:",
-        "image": "images/q2.jpg",
+        "image": "images/PhantomStat1draft.jpg",
         "options": [
             ("Something physical — a hike, a match, a project with your hands", "orion"),
             ("A small gathering with people you trust", "ursa"),
@@ -37,7 +37,7 @@ QUESTIONS = [
     },
     {
         "prompt": "People come to you for:",
-        "image": "images/q3.jpg",
+        "image": "images/PhantomStat2Draft.jpg",
         "options": [
             ("A push to actually go do the thing", "orion"),
             ("Comfort and steady support", "ursa"),
