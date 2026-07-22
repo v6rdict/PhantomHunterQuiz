@@ -345,7 +345,7 @@ INTRO_HTML = """
 <body><div class="card">
   <p class="eyebrow">A choose-your-own-adventure quiz.</p>
   <h1>What kind of person are you?</h1>
-  <p class="sub">There's no wrong answer, just be honest. Your result can also help you determine a potential partnership!</p>
+  <p class="sub">There's no wrong answer, just be honest. </p>
   <a class="start-btn" href="{{ url_for('story', node_id='start') }}">Begin</a>
 </div></body></html>
 """
