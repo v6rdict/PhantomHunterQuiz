@@ -14,7 +14,7 @@ STORY = {
             "You wake up bright and early to the sunlight shining through your window.\n "
             "As you blinked away the sleep from your eyes, you: "
         ),
-        "image": "images/fishbartender.jpg",
+        "image": "images/start.jpg",
         "choices": [
             ("Check your phone first. ", "path_d", "diffident"),
             ("Get up and immediately start your day. ", "path_s", "strategic"),
@@ -27,10 +27,11 @@ STORY = {
         "text": (
             "You check your phone. There are no new notifications related to work/school, so you decide: "
         ),
+        "image": "images/checkphone.jpg",
         "choices": [
-            ("Start your day. ", "path_s", "strategic"),
-            ("Sit up in bed and enjoy the warm sunshine. ", "path_a", "affable"),
-            ("Go back to sleep. ", "path_c", "diffident"),
+            ("To start your day. ", "path_s", "strategic"),
+            ("To sit up in bed and enjoy the warm sunshine. ", "path_a", "affable"),
+            ("To go back to sleep. ", "path_c", "diffident"),
         ],
     },
 
@@ -39,7 +40,7 @@ STORY = {
             "As you make your way through your morning tasks, you think about what to do today. \n "
             "It's the weekend, so you: "
         ),
-        "image": "images/pg3.jpg",
+        "image": "images/startday.jpg",
         "choices": [
             ("Stay at home and work on your hobbies. ", "path_hobby", "diffident"),
             ("Get some work done first before you enjoy the weekend. ", "path_sure", "strategic"),
@@ -52,7 +53,7 @@ STORY = {
         "text": (
             "After a short while of enjoying the sunshine, you think: "
         ),
-        "image": "images/pg4.jpg",
+        "image": "images/start.jpg",
         "choices": [
             ("You want to stay home to work on your hobbies.", "path_hobby", "diffident"),
             ("You should probably just get up and start your day.", "path_s", "strategic"),
@@ -66,7 +67,6 @@ STORY = {
             "You go back to sleep but eventually wake up in the afternoon. "
             "It's the weekend, so you: "
         ),
-        "image": "images/pg3.jpg",
         "choices": [
             ("Stay at home and work on your hobbies. ", "path_hobby", "diffident"),
             ("Get some work done. ", "end", "strategic"),
@@ -79,7 +79,6 @@ STORY = {
         "text": (
             "What would you like to do? "
         ),
-        "image": "images/pg3.jpg",
         "choices": [
             ("Get some reading done ", "cnext", "neutral"),
             ("Do some crafts ", "cnext", "diffident"),
@@ -314,11 +313,11 @@ a.start-btn {
 INTRO_HTML = """
 <!doctype html><html><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>What kind of Phantom Hunter are you?</title><style>{{ css }}</style></head>
+<title>What kind of person are you?</title><style>{{ css }}</style></head>
 <body><div class="card">
-  <p class="eyebrow">A choose-your-own-adventure story.</p>
-  <h1>What kind of Phantom Hunter are you?</h1>
-  <p class="sub">Every choice leads somewhere different. There's no wrong answer, just be honest.</p>
+  <p class="eyebrow">A choose-your-own-adventure quiz.</p>
+  <h1>What kind of person are you?</h1>
+  <p class="sub">There's no wrong answer, just be honest. Your result can also help you determine a potential partnership!</p>
   <a class="start-btn" href="{{ url_for('story', node_id='start') }}">Begin</a>
 </div></body></html>
 """
