@@ -14,7 +14,7 @@ STORY = {
             "You wake up to a bright light shining through the window.\n "
             "As you blinked away the sleep from your eyes, you realise you've been shipwrecked on an island. "
         ),
-        "image": "images/start.jpg",
+        "image": "fishbartender/start.jpg",
         "choices": [
             ("Get up", "pg2", "neutral"),
         ],
@@ -408,8 +408,7 @@ RESULTS = {
         "title": "The Timid",
         "blurb": (
             "You lack the self confidence to face up to uncertainty,  "
-            "so you run from any situation without a guaranteed outcome. "
-            "Some call it strategic, others, cowardice. \n"
+            "so you run from any situation without a guaranteed outcome. \n"
             "You work best with someone affable. "
         ),
     },
