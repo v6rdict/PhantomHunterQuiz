@@ -67,6 +67,7 @@ STORY = {
             "You go back to sleep but eventually wake up in the afternoon. "
             "It's the weekend, so you: "
         ),
+        "image": "images/afterwake.jpg",
         "choices": [
             ("Stay at home and work on your hobbies. ", "path_hobby", "diffident"),
             ("Get some work done. ", "end", "strategic"),
@@ -98,7 +99,6 @@ STORY = {
         "text": (
             "While you carry out your activities, the end of the day approaches. "
         ),
-        "image": "images/pg3.jpg",
         "choices": [
             ("Start cleaning up your home before preparing for bed and ending your day. ", "end", "strategic"),
             ("You think that you rather enjoyed your day, and start preparing for bed. ", "end", "affable"),
@@ -112,10 +112,44 @@ STORY = {
             "You reach out to some friends and organised a spontaneous get together at your home. "
             "How will you be hosting?: "
         ),
-        "image": "images/pg3.jpg",
         "choices": [
             ("Clean up your home while thinking of some activities for later. ", "pres_end", "strategic"),
             ("Simply take care of some messes in your home and focus on planning out the activities for later. ", "prea_end", "affable"),
+        ],
+    },
+
+    "path_sure": {
+        "text": (
+            "You get started on your work after lunch, and day dissolved into night. \n"
+            "When you realised it was almost dark out, you: "
+        ),
+        "choices": [
+            ("Have dinner and start winding down for the end of your day. ", "end", "strategic"),
+            ("Decide to stay up and continue before giving in to exhaustion and going to bed. ", "end", "capricious"),
+        ],
+    },
+
+    "path_go": {
+        "text": (
+            "You head out without a plan. "
+            "What will you do? "
+        ),
+        "choices": [
+            ("Get on the next bus and see where it takes you. ", "prec_end", "capricious"),
+            ("Take a short walk before heading back. ", "preago_end", "affable"),
+        ],
+    },
+
+    "prec_end": {
+        "text": (
+            "You get on the next bus and manage to get a seat. \n "
+            "You look out the window and watch the city pass by. Eventually, you get off somewhere unfamiliar to you, and start exploring until "
+            "it was starting to get dark, at which you decided to head back home. Once home:"
+        ),
+        "choices": [
+            ("You think that you rather enjoyed your day, and start preparing for bed. ", "end", "affable"),
+            ("You clean your house thoroughly before carefully carrying out your bedtime routine. ", "end", "diffident"),
+            ("You stay up to look at social media before giving in to exhaustion and going to bed. ", "end", "capricious"),
         ],
     },
 
@@ -124,7 +158,6 @@ STORY = {
             "You have fun hanging out with your friends, and it is soon time for them to head home. \n "
             "You say your goodbyes, then:"
         ),
-        "image": "images/pg3.jpg",
         "choices": [
             ("Start cleaning up your home before preparing for bed and ending your day. ", "end", "strategic"),
             ("Think that you rather enjoyed your day, and start preparing for bed. ", "end", "affable"),
@@ -138,7 +171,6 @@ STORY = {
             "You have fun hanging out with your friends, and it is soon time for them to head home. \n "
             "You say your goodbyes, then:"
         ),
-        "image": "images/pg3.jpg",
         "choices": [
             ("Start cleaning up your home before preparing for bed and ending your day. ", "end", "strategic"),
             ("Think that you rather enjoyed your day, and start preparing for bed. ", "end", "affable"),
@@ -166,28 +198,24 @@ RESULTS = {
         "name": "Strategist",
         "title": "The Thinker",
         "blurb": (
-            "You pause to map the safest route, not out of fear, "
-            "but to make sure you're making the best choices you can. \n "
-            "You work best with someone capricous. "
+            "You like to think things through and make sure that you're making the most efficient choices you can. \n "
+            "You work best with someone capricous, who can follow your strategic mind. "
         ),
     },
     "capricious": {
         "name": "Capricious",
         "title": "The Instinctive",
         "blurb": (
-            "Your trust in your instincts are steadfast, so "
-            "you like to dive in headfirst no matter the situation. \n "
-            "You work best with someone strategic. "
+            "You like to keep things simple and do whatever you feel like doing. \n "
+            "You work best with someone strategic, whose strategic mind can help guide you. "
         ),
     },
     "affable": {
         "name": "Affable",
         "title": "The Amiable",
         "blurb": (
-            "You may not always know what is the right thing to do, "
-            "but you always try your best not to assume the worst and "
-            "be a source of kindness. \n "
-            "You work best with someone diffident. "
+            "You like to go through life with a postive mindset and take things in stride. \n "
+            "You work best with someone diffident, who responds well to your positive outlook. "
         ),
     },
 }
@@ -197,7 +225,7 @@ BASE_CSS = """
     --bg: #0b1224;
     --bg-soft: #121a33;
     --line: #253158;
-    --gold: #23E628;
+    --gold: #FFE169;
     --text: #eef1fb;
     --text-dim: #9aa3c7;
 }
