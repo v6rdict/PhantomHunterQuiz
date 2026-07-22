@@ -398,8 +398,8 @@ PASSAGE_HTML = """
   {% endif %}
   <h1>{{ node.text }}</h1>
   <div class="choices">
-    {% for label, next_node in node.choices %}
-      <a class="option" href="{{ url_for('story', node_id=next_node) }}">{{ label }}</a>
+    {% for label, next_node, tag in node.choices %}
+      <a class="option" href="{{ url_for('story', node_id=next_node, tag=tag) }}">{{ label }}</a>
     {% endfor %}
   </div>
 </div></body></html>
