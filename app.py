@@ -16,7 +16,7 @@ STORY = {
         ),
         "image": "images/start.jpg",
         "choices": [
-            ("Get up", "pg2"),
+            ("Get up", "pg2", "neutral"),
         ],
     },
     "pg2": {
@@ -26,7 +26,7 @@ STORY = {
         ),
         "image": "images/pg2.jpg",
         "choices": [
-            ("Walk up", "pg3"),
+            ("Walk up", "pg3", "neutral"),
         ],
     },
     "pg3": {
@@ -35,7 +35,7 @@ STORY = {
         ),
         "image": "images/pg3.jpg",
         "choices": [
-            ("Ignore it and continue on", "pg4"),
+            ("Ignore it and continue on", "pg4", "neutral"),
         ],
     },
     "pg4": {
@@ -44,9 +44,9 @@ STORY = {
         ),
         "image": "images/pg4.jpg",
         "choices": [
-            ("Scream and run away", "path_t", "timid"),
+            ("Scream and run away", "path_t", "diffident"),
             ("Stare blankly at it", "path_s", "strategic"),
-            ("Kick it away", "path_i", "instinct"),
+            ("Kick it away", "path_i", "capricious"),
             ("'Hey... Since when could dolls talk??'", "path_a", "affable"),
         ],
     },
@@ -58,8 +58,8 @@ STORY = {
         ),
         "image": "images/run.jpg",
         "choices": [
-            ("Keep trying to make your way back to the cabin", "path_loop", "timid"),
-            ("Continue up the path", "path_mansion", "instinct"),
+            ("Keep trying to make your way back to the cabin", "path_loop", "diffident"),
+            ("Continue up the path", "path_mansion", "capricious"),
         ],
     },
     "path_loop": {
@@ -69,8 +69,8 @@ STORY = {
         ),
         "image": "images/path_loop.jpg",
         "choices": [
-            ("Keep trying to make your way back to the cabin", "path_loop", "timid"),
-            ("Continue up the path", "path_mansion"),
+            ("Keep trying to make your way back to the cabin", "path_loop", "diffident"),
+            ("Continue up the path", "path_mansion", "diffident"),
         ],
     },
     "path_mansion": {
@@ -80,7 +80,7 @@ STORY = {
         ),
         "image": "images/path_mansion.jpg",
         "choices": [
-            ("Chase after the doll and enter the mansion", "path_inMansion"),
+            ("Chase after the doll and enter the mansion", "path_inMansion", "neutral"),
         ],
     },
     "path_s": {
@@ -103,7 +103,7 @@ STORY = {
         ),
         "image": "images/dollaway.jpg",
         "choices": [
-            ("Chase after the doll and enter the mansion", "path_inMansion", "instinct"),
+            ("Chase after the doll and enter the mansion", "path_inMansion", "capricious"),
             ("Go back", "path_loop", "strategic")
         ],
     },
@@ -116,7 +116,7 @@ STORY = {
         "image": "images/dollFly.jpg",
         "choices": [
             ("Chase after the doll and enter the mansion", "path_inMansion", "affable"),
-            ("Go back", "path_loop", "timid")
+            ("Go back", "path_loop", "diffident")
         ],
     },
 
@@ -127,7 +127,7 @@ STORY = {
         ),
         "image": "images/papers.jpg",
         "choices": [
-            ("Read the papers", "path_papers",),
+            ("Read the papers", "path_papers", "neutral"),
         ],
     },
     
@@ -140,7 +140,7 @@ STORY = {
         ),
         "image": "images/papers.jpg",
         "choices": [
-            ("Follow her", "path_follow"),
+            ("Follow her", "path_follow", "neutral"),
         ],
     },
 
@@ -151,7 +151,7 @@ STORY = {
         ),
         "image": "images/room.jpg",
         "choices": [
-            ("Keep going", "cont"),
+            ("Keep going", "cont", "neutral"),
         ],
     },
 
@@ -165,11 +165,26 @@ STORY = {
         "choices": [
             ("Carefully approach her with the aim of finding out more.", "path_approach", "strategic"),
             ("Sit by her to offer her some comfort.", "path_comfort", "affable"),
-            ("Slowly walk away.", "path_walkAway", "timid"),
-            ("Ask her what she's up to.", "path_ask", "instinct"),
+            ("Slowly walk away.", "path_walkAway", "diffident"),
+            ("Ask her what she's up to.", "path_ask", "capricious"),
         ],
     },
     
+    
+    "path_walkAway": {
+        "text": (
+            "You try to walk away, but you somehow trip and fall flat on your face. \n"
+            "The doll realises your presence, and the strangled sounds ceased. \n "
+            "'You can leave now, you know. I told them to stop their silly tricks.' "
+        ),
+        "image": "images/dollDialogue.jpg",
+        "choices": [
+            ("Them?", "path_who", "capricious"),
+            ("'I see.. are you.. okay though?'", "path_comfort", "affable"),
+            ("Run away and leave.", "path_leave", "diffident"),
+        ],
+    },
+
     "path_approach": {
         "text": (
             "The doll realises your presence, and the strangled sounds ceased. \n "
@@ -178,39 +193,210 @@ STORY = {
         "image": "images/dollDialogue.jpg",
         "choices": [
             ("Them?", "path_who", "strategic"),
-            ("'What're you doing down here?'", "path_ask", "instinct"),
+            ("'What're you doing down here?'", "path_ask", "capricious"),
             ("'I see... are you okay though?'", "path_comfort", "affable"),
-            ("Run away.","path_run", "timid"),
+            ("Run away and leave.","path_leave", "diffident"),
         ],
     },
 
+    "path_ask": {
+        "text": (
+            "'What?' she says, startled. \n"
+            "'I'm... nothing. You should leave. I was being serious about my father.' she continues, her mind seemingly somewhere else. \n"
+        ),
+        "image": "images/dollDialogue.jpg",
+        "choices": [
+            ("Leave", "path_leave", "strategic"),
+            ("Stay", "path_stay", "capricious"),
+        ],
+    },
+    
     "path_comfort": {
         "text": (
             "'What?' she says, confused. \n"
             "'Are you okay? You seem rather upset...' you said slowly. \n"
             "She falls silent for a while, and you started to wonder if she had gone back to being inanimate,"
-            "when she finally spoke again. 'I'm fine, but you won't be if my father catches you. Please"
+            "when she finally spoke again. 'I'm fine, but you won't be if my father catches you. Please, "
             "just leave, as fast as you can.'"
         ),
         "image": "images/dollDialogue.jpg",
         "choices": [
             ("Leave", "path_leave", "strategic"),
-            ("Stay", "path_leave", "instinct"),
+            ("Stay", "path_stay", "capricious"),
         ],
     },
 
-    "path_comfort": {
+    "path_who": {
         "text": (
-            "'What?' she says, confused. \n"
-            "'Are you okay? You seem rather upset...' you said slowly. \n"
-            "She falls silent for a while, and you start to wonder if "
+            "'The... phantoms were keeping you in a loop on that path.\n"
+            "I've told them to stop, so you can leave now. They just like"
+            "to have a bit of fun with newcomers on the island.' "
         ),
         "image": "images/dollDialogue.jpg",
         "choices": [
-            ("Them?", "cont"),
+            ("'I see,' you say, unsure of what to do next", "path_stay", "neutral"),
+            ("'I see,' you say, then turn to leave. You felt it unwise to stay any longer.", "path_leave", "strategic"),
+            ("'I see... are you okay though?'", "path_comfort", "affable"),
         ],
     },
 
+    "path_leave": {
+        "text": (
+            "You take your leave, and start making your way back to the ship.\n"
+            "As you walked, you thought about the doll and the possible secrets hidden in the mansion, "
+            " but still believed leaving was the right thing to do."
+        ),
+        "image": "images/leaving.jpg",
+        "choices": [
+            ("Continue", "leave_2", "neutral"),
+        ],
+    },
+
+    "leave_2": {
+        "text": (
+            "Once you were back to the ship, you called for help and was soon rescued from the island.\n"
+        ),
+        "image": "images/help.jpg",
+        "choices": [
+            ("Go home", "leave_3", "neutral"),
+        ],
+    },
+    
+    "leave_3": {
+        "text": (
+            "Back home, life started going back to normal.\n "
+            "Bzzt...\n Your phone buzzes in your pocket."
+        ),
+        "image": "images/normallife.jpg",
+        "choices": [
+            ("Check your phone", "phone", "neutral"),
+        ],
+    },
+
+    "phone": {
+        "text": (
+            " "
+        ),
+        "image": "images/wewantyouPhone.jpg",
+        "choices": [
+            ("...", "end", "neutral"),
+        ],
+    },
+
+    "path_stay": {
+        "text": (
+            "The doll waits for you to leave. \n"
+            "When you don't, she scoffs and says 'Suit yourself.' and leaves."
+            "You then take a closer look at the chest. It seems like it's already been unlocked- perhaps "
+            "she was simply too small to open it."
+        ),
+        "image": "images/dollDialogue.jpg",
+        "choices": [
+            ("Open the chest.", "path_chest", "neutral"),
+            ("Forget about it and leave", "path_leave", "strategist"),
+        ],
+    },
+
+    "path_chest": {
+        "text": (
+            "You open the chest and peer inside. \n"
+        ),
+        "image": "images/chestOpen.jpg",
+        "choices": [
+            ("Pick up and inspect it", "path_inspect", "neutral"),
+            ("Forget about it and leave", "path_leave", "strategist"),
+        ],
+    },
+
+    "path_inspect": {
+        "text": (
+            "You inspect the item, and realise there were some papers and blueprints underneath it. \n"
+            "You read the papers and find out that it was a healing tool... but why was it hidden away here? \n"
+            "Just then, you hear a muffled voice behind you: \n "
+            "'I see you've found my H.A.T.'"
+        ),
+        "image": "images/HAT.jpg",
+        "choices": [
+            ("'Your hat??'", "path_hat", "capricious"),
+        ],
+    },
+
+    "path_hat": {
+        "text": (
+            "'Not hat, H.A.T.!' \n"
+            "You stood there, confused by the octogenarian's strange presence. There was something off "
+            "about him. \n "
+            "'Whatever. It doesn't matter. You're coming with me.' He reaches out to grab you, but:"
+        ),
+        "image": "images/weirdguy.jpg",
+        "choices": [
+            ("You punch him square in the face and run off.", "path_preLeave", "capricious"),
+            ("You aim the H.A.T. at him", "path_aim", "strategist"),
+            ("Try to talk to him", "path_talk", "affable"),
+        ],
+    },
+
+    "path_aim": {
+        "text": (
+            "You aim the H.A.T at the man, and he freezes and raises his arms above his head- \n"
+            "'Be careful with that!' He shouts, and you: "
+        ),
+        "image": "images/weirdguy.jpg",
+        "choices": [
+            ("Pull the trigger", "path_preLeave", "capricious"),
+            ("'Why?'", "path_talk", "affable"),
+        ],
+    },
+
+    "path_talk": {
+        "text": (
+            "You start to talk, but before you could finish, he disarms you. \n"
+            "'This is very important to me,' he explains, but you found yourself starting to feel lightheaded. \n "
+            "The man continued speaking, but you could no longer focus on his words... \n"
+            "Eventually, you found yourself on the ground, spots swimming before your eyes."
+        ),
+        "image": "images/blackout.jpg",
+        "choices": [
+            ("...", "path_black", "neutral"),
+        ],
+    },
+
+    "path_black": {
+        "text": (
+            "'I did tell you to leave.' A familiar voice could be heard, but you still didn't have the strength to move. \n"
+            "'That was my father. The one in the papers you read about.' It was the doll from before. \n "
+            "'He had been depressed after my mother passed before we could use the H.A.T. on her, but I think my death was "
+            "what pushed him over the edge.. to think that he would turn to necromancy.."
+        ),
+        "image": "images/dollLore.jpg",
+        "choices": [
+            ("...", "path_black2", "neutral"),
+        ],
+    },
+
+    "path_black2": {
+        "text": (
+            "'I did tell you to leave.' A familiar voice could be heard, but you still didn't have the strength to move. \n"
+            "'That was my father. The one in the papers you read about.' It was the doll from before. \n "
+            "'He had been depressed after my mother passed before we could use the H.A.T. on her, but I think my death was "
+            "what pushed him over the edge.. to think that he would turn to necromancy.."
+        ),
+        "image": "images/dollLore.jpg",
+        "choices": [
+            ("...", "path_black2", "neutral"),
+        ],
+    },
+
+    "path_preLeave": {
+        "text": (
+            "You speed away up the stairs and out of the mansion, your breath catching \n"
+            "but you not caring, continuing to run all the way down the path back to the ship. \n"
+        ),
+        "image": "images/dollDialogue.jpg",
+        "choices": [
+            ("Call for help", "leave_2", "strategist"),
+        ],
+    },
 
 
     "end": {},
@@ -223,7 +409,7 @@ RESULTS = {
         "blurb": (
             "You lack the self confidence to face up to uncertainty,  "
             "so you run from any situation without a guaranteed outcome. "
-            "Some call it strategic, others, cowardice."
+            "Some call it strategic, others, cowardice. \n"
             "You work best with someone affable. "
         ),
     },
@@ -232,7 +418,7 @@ RESULTS = {
         "title": "The Calculated",
         "blurb": (
             "You pause to map the safest route, not out of fear, "
-            "but to make sure you're making the best choices you can. "
+            "but to make sure you're making the best choices you can. \n "
             "You work best with someone capricous. "
         ),
     },
@@ -241,7 +427,7 @@ RESULTS = {
         "title": "The Instinctive",
         "blurb": (
             "Your trust in your instincts are steadfast, so "
-            "you like to dive in headfirst no matter the situation. "
+            "you like to dive in headfirst no matter the situation. \n "
             "You work best with someone strategic. "
         ),
     },
@@ -251,7 +437,7 @@ RESULTS = {
         "blurb": (
             "You may not always know what is the right thing to do, "
             "but you always try your best not to assume the worst and "
-            "be a source of kindness. "
+            "be a source of kindness. \n "
             "You work best with someone diffident. "
         ),
     },
@@ -441,14 +627,15 @@ def story(node_id):
         tags = session.get("tags", [])
         if not tags:
             return redirect(url_for("intro"))
- 
+        
         counts = {}
         for t in tags:
+            if t == "neutral":
+                continue
             counts[t] = counts.get(t, 0) + 1
         top_score = max(counts.values())
         winners = [t for t, n in counts.items() if n == top_score]
         winner = random.choice(winners)  
- 
         return render_template_string(
             ENDING_HTML, css=BASE_CSS, result=RESULTS[winner]
         )
