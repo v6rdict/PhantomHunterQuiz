@@ -186,33 +186,33 @@ STORY = {
 
 RESULTS = {
     "diffident": {
-        "name": "Diffident",
-        "title": "The Reserved",
+        "name": "Completer",
+        "title": "The Driven",
         "blurb": (
             "You lack the self confidence to face up to uncertainty,  "
-            "so you always have to check through things thoroughly and run from any situation without a guaranteed outcome. \n"
+            "so you always have to check through things thoroughly when faced with any task at hand. \n"
             "You work best with someone affable, who can help guide you through your reservations. "
         ),
     },
     "strategic": {
-        "name": "Strategist",
-        "title": "The Thinker",
+        "name": "Streamliner",
+        "title": "The Pragmatic",
         "blurb": (
-            "You like to think things through and make sure that you're making the most efficient choices you can. \n "
+            "You like to think things through and make sure that you're making the most efficient choices you can to reach your goals. \n "
             "You work best with someone capricous, who can follow your strategic mind. "
         ),
     },
     "capricious": {
-        "name": "Capricious",
-        "title": "The Instinctive",
+        "name": "Implementer",
+        "title": "The Action-Oriented",
         "blurb": (
             "You like to keep things simple and do whatever you feel like doing. \n "
             "You work best with someone strategic, whose strategic mind can help guide you. "
         ),
     },
     "affable": {
-        "name": "Affable",
-        "title": "The Amiable",
+        "name": "Coordinator",
+        "title": "The People-Oriented",
         "blurb": (
             "You like to go through life with a postive mindset and take things in stride. \n "
             "You work best with someone diffident, who responds well to your positive outlook. "
@@ -341,7 +341,7 @@ a.start-btn {
 INTRO_HTML = """
 <!doctype html><html><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>What kind of person are you?</title><style>{{ css }}</style></head>
+<title>What Role Do You Play In A Team?</title><style>{{ css }}</style></head>
 <body><div class="card">
   <p class="eyebrow">A choose-your-own-adventure quiz.</p>
   <h1>What kind of person are you?</h1>
