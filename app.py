@@ -9,38 +9,138 @@ app = Flask(__name__)
 STORY = {
     "start": {
         "text": (
-            "You wake in a clearing under a sky you don't recognize. "
-            "Something is moving in the treeline, and it's getting closer."
+            "You wake up to a bright light shining through the window. "
+            "As you blinked away the sleep from your eyes, you realise you've been shipwrecked on an island. "
         ),
         "image": "images/start.jpg",
         "choices": [
-            ("Stand your ground and face it", "path_fight"),
-            ("Slip away before it gets any closer", "path_flee"),
+            ("Get up", "pg2"),
         ],
     },
-    "path_fight": {
+    "pg2": {
         "text": (
-            "It isn't one shape — it's several, closing in from different "
-            "angles. You have seconds to decide how you meet them."
+            "You get up, and slowly make your way out of your cabin and off the ship. "
+            "There's a path up towards a huge mansion, and you decide, apprehensively, to walk towards it. "
         ),
-        "image": "images/path_fight.jpg",
+        "image": "images/pg2.jpg",
         "choices": [
-            ("Charge in alone", "end_orion"),
-            ("Call out for the others camped nearby", "end_ursa"),
+            ("Walk up", "pg3"),
         ],
     },
-    "path_flee": {
+    "pg3": {
         "text": (
-            "You slip into the dark. The path splits ahead — one way "
-            "vanishes into shadow, the other opens toward distant firelight."
+            "On the way, you see a doll on the ground. "
         ),
-        "image": "images/path_flee.jpg",
+        "image": "images/pg3.jpg",
         "choices": [
-            ("Map the safest route before moving", "end_draco"),
-            ("Head straight for the fire and the people around it", "end_cass"),
+            ("Ignore it and continue on", "pg4"),
         ],
     },
-    # Endings have no "choices" key — instead they point at a RESULTS entry.
+    "pg4": {
+        "text": (
+            "The doll suddenly gets up and screams at you, causing you to: "
+        ),
+        "image": "images/pg4.jpg",
+        "choices": [
+            ("Scream and run away", "path_timid"),
+            ("Stare blankly at it", "path_strat"),
+            ("Kick it away", "path_instinct"),
+            ("'Hey... Since when could dolls talk??'", "path_affable"),
+        ],
+    },
+    "path_timid": {
+        "text": (
+            "As you make a mad dash away from the doll, you see it slowly floating away into the mansion. "
+            "You keep running but eventually stop when you've exhausted all your energy. "
+            "It's only when you stopped you realised that you haven't moved from your original spot at all. "
+        ),
+        "image": "images/run.jpg",
+        "choices": [
+            ("Keep trying to make your way back to the cabin", "path_loop"),
+            ("Continue up the path", "path_mansion"),
+        ],
+    },
+    "path_loop": {
+        "text": (
+            "You try to head back, but it feels like an endless loop- "
+            "the path back never shortens. "
+        ),
+        "image": "images/path_loop.jpg",
+        "choices": [
+            ("Keep trying to make your way back to the cabin", "path_loop"),
+            ("Continue up the path", "path_mansion"),
+        ],
+    },
+    "path_mansion": {
+        "text": (
+            "It dawned on you that you had no other choice but to walk towards the mansion to seek answers "
+            "from that doll, so you sighed and resigned yourself to whatever fate had in store... "
+        ),
+        "image": "images/path_mansion.jpg",
+        "choices": [
+            ("Chase after the doll and enter the mansion", "path_inMansion"),
+        ],
+    },
+    "path_strat": {
+        "text": (
+            "As you stared blankly at the doll, weighing your options, it stared back- but only for a split second, "
+            "before it floated away towards the mansion at an unfathomable speed, leaving you pondering. "
+        ),
+        "image": "images/dollaway.jpg",
+        "choices": [
+            ("Chase after the doll and enter the mansion", "path_inMansion"),
+            ("Go back", "path_loop")
+        ],
+    },
+    
+    "path_instinct": {
+        "text": (
+            "THWAK! You kicked the doll with full force instinctively. 'WHY WOULD YOU DO THAT??' "
+            "You looked around in search of the voice, but all you saw was the doll floating away hastily. "
+        ),
+        "image": "images/dollaway.jpg",
+        "choices": [
+            ("Chase after the doll and enter the mansion", "path_inMansion"),
+            ("Go back", "path_loop")
+        ],
+    },
+
+    "path_affable": {
+        "text": (
+            "'Ugh, people are so unimaginative.. I can fly too you know,' and before you knew it, she had "
+            "flown away into the mansion. "
+        ),
+        "image": "images/dollFly.jpg",
+        "choices": [
+            ("Chase after the doll and enter the mansion", "path_inMansion"),
+            ("Go back", "path_loop")
+        ],
+    },
+
+    "path_inMansion": {
+        "text": (
+            "The moment you entered the mansion, a cold gust of wind blew by, sending chills down your spine. "
+            "You look around and spot some newspapers left on a table."
+        ),
+        "image": "images/papers.jpg",
+        "choices": [
+            ("Read the papers", "path_papers"),
+        ],
+    },
+    
+    "path_papers": {
+        "text": (
+            "You pick up the papers and read the headlines of the first one. "
+            "'I haven't seen those in a while.' You turn around and saw the doll again. 'You should leave. "
+            "My father doesn't take kindly to strangers.' At that, you start to question her but she "
+            "once again leaves before you could say anything. "
+        ),
+        "image": "images/papers.jpg",
+        "choices": [
+            ("Follow her", "path_follow"),
+        ],
+    },
+
     "end_diffident": {"result": "diffident"},
     "end_strategic": {"result": "strategic"},
     "end_capricious": {"result": "capricious"},
@@ -222,7 +322,7 @@ PASSAGE_HTML = """
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Your story</title><style>{{ css }}</style></head>
 <body><div class="card">
-  <p class="eyebrow">What do you do?</p>
+  <p class="eyebrow"></p>
   {% if node.image %}
     <img class="question-image" src="{{ url_for('static', filename=node.image) }}" alt="">
   {% endif %}
