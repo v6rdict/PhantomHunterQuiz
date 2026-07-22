@@ -27,7 +27,7 @@ QUESTIONS = [
     },
     {
         "prompt": "Your ideal weekend involves:",
-        "image": "images/PhantomStat1draft.jpg",
+        "image": "images/.jpg",
         "options": [
             ("Something physical — a hike, a match, a project with your hands", "orion"),
             ("A small gathering with people you trust", "ursa"),
@@ -37,7 +37,7 @@ QUESTIONS = [
     },
     {
         "prompt": "People come to you for:",
-        "image": "images/PhantomStat2Draft.jpg",
+        "image": "images/.jpg",
         "options": [
             ("A push to actually go do the thing", "orion"),
             ("Comfort and steady support", "ursa"),
@@ -73,7 +73,7 @@ RESULTS = {
         "title": "The Hunter",
         "blurb": (
             "You move first and think while moving. Orion is the constellation "
-            "everyone can find in the sky because it doesn't hide — and neither "
+            "everyone can find in the sky because it doesn't hide, and neither "
             "do you. You're at your best when there's something to chase."
         ),
     },
@@ -159,7 +159,7 @@ body {
     margin: 0 0 10px 0;
 }
 h1 {
-    font-size: 28px;
+    font-size: 21px;
     line-height: 1.3;
     margin: 0 0 6px 0;
 }
