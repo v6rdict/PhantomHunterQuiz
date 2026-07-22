@@ -9,7 +9,7 @@ app = Flask(__name__)
 STORY = {
     "start": {
         "text": (
-            "You wake up to a bright light shining through the window. "
+            "You wake up to a bright light shining through the window.\n "
             "As you blinked away the sleep from your eyes, you realise you've been shipwrecked on an island. "
         ),
         "image": "images/start.jpg",
@@ -19,7 +19,7 @@ STORY = {
     },
     "pg2": {
         "text": (
-            "You get up, and slowly make your way out of your cabin and off the ship. "
+            "You get up, and slowly make your way out of your cabin and off the ship.\n "
             "There's a path up towards a huge mansion, and you decide, apprehensively, to walk towards it. "
         ),
         "image": "images/pg2.jpg",
@@ -50,8 +50,8 @@ STORY = {
     },
     "path_timid": {
         "text": (
-            "As you make a mad dash away from the doll, you see it slowly floating away into the mansion. "
-            "You keep running but eventually stop when you've exhausted all your energy. "
+            "As you make a mad dash away from the doll, you see it slowly floating away into the mansion.\n "
+            "You keep running but eventually stop when you've exhausted all your energy.\n "
             "It's only when you stopped you realised that you haven't moved from your original spot at all. "
         ),
         "image": "images/run.jpg",
@@ -95,7 +95,8 @@ STORY = {
     
     "path_instinct": {
         "text": (
-            "THWAK! You kicked the doll with full force instinctively. 'WHY WOULD YOU DO THAT??' "
+            "THWAK! You kicked the doll with full force instinctively.\n"
+            " 'WHY WOULD YOU DO THAT??!' "
             "You looked around in search of the voice, but all you saw was the doll floating away hastily. "
         ),
         "image": "images/dollaway.jpg",
@@ -107,7 +108,7 @@ STORY = {
 
     "path_affable": {
         "text": (
-            "'Ugh, people are so unimaginative.. I can fly too you know,' and before you knew it, she had "
+            "'Ugh, people are so unimaginative.. I can fly too, you know!' and before you knew it, she had "
             "flown away into the mansion. "
         ),
         "image": "images/dollFly.jpg",
@@ -119,7 +120,7 @@ STORY = {
 
     "path_inMansion": {
         "text": (
-            "The moment you entered the mansion, a cold gust of wind blew by, sending chills down your spine. "
+            "The moment you entered the mansion, a cold gust of wind blew by, sending chills down your spine.\n "
             "You look around and spot some newspapers left on a table."
         ),
         "image": "images/papers.jpg",
@@ -130,9 +131,9 @@ STORY = {
     
     "path_papers": {
         "text": (
-            "You pick up the papers and read the headlines of the first one. "
-            "'I haven't seen those in a while.' You turn around and saw the doll again. 'You should leave. "
-            "My father doesn't take kindly to strangers.' At that, you start to question her but she "
+            "You pick up the papers and read the headlines of the first one.\n\n "
+            "'I haven't seen those in a while.' You turn around and saw the doll again.\n 'You should leave. "
+            "My father doesn't take kindly to strangers.' \n At that, you start to question her but she "
             "once again leaves before you could say anything. "
         ),
         "image": "images/papers.jpg",
@@ -241,9 +242,10 @@ body {
     margin: 0 0 10px 0;
 }
 h1 {
-    font-size: 26px;
+    font-size: 21px;
     line-height: 1.4;
     margin: 0 0 6px 0;
+    white-space: pre-line;
 }
 p.sub {
     color: var(--text-dim);
