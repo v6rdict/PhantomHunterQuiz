@@ -27,7 +27,6 @@ STORY = {
         "text": (
             "You check your phone. There are no new notifications related to work/school, so you decide: "
         ),
-        "image": "images/pg2.jpg",
         "choices": [
             ("Start your day. ", "path_s", "strategic"),
             ("Sit up in bed and enjoy the warm sunshine. ", "path_a", "affable"),
@@ -71,7 +70,7 @@ STORY = {
         "choices": [
             ("Stay at home and work on your hobbies. ", "path_hobby", "diffident"),
             ("Get some work done. ", "end", "strategic"),
-            ("Call up some friends for a get together. ", "path_", "affable"),
+            ("Call up some friends for a get together. ", "path_friends", "affable"),
             ("Get out of the house to do something. ", "path_go", "capricious"),
         ],
     },
@@ -82,17 +81,30 @@ STORY = {
         ),
         "image": "images/pg3.jpg",
         "choices": [
-            ("Get some reading done ", "end", "neutral"),
-            ("Do some crafts ", "end", "diffident"),
-            ("Program something ", "end", "neutral"),
-            ("Sew ", "end", "diffident"),
-            ("Embroidery ", "end", "diffident"),
-            ("Paint ", "end", "diffident"),
-            ("Do some puzzles ", "end", "strategic"),
-            ("Bake ", "end", "strategic"),
-            ("Cook ", "end", "capricious"),
-            ("Journal ", "end", "neutral"),
-            ("Scrapbook ", "end", "diffident"),
+            ("Get some reading done ", "cnext", "neutral"),
+            ("Do some crafts ", "cnext", "diffident"),
+            ("Program something ", "cnext", "neutral"),
+            ("Sew ", "cnext", "diffident"),
+            ("Embroidery ", "cnext", "diffident"),
+            ("Paint ", "cnext", "diffident"),
+            ("Do some puzzles ", "cnext", "strategic"),
+            ("Bake ", "cnext", "strategic"),
+            ("Cook ", "cnext", "capricious"),
+            ("Journal ", "cnext", "diffident"),
+            ("Scrapbook ", "cnext", "diffident"),
+        ],
+    },
+
+    "cnext": {
+        "text": (
+            "While you carry out your activities, the end of the day approaches. "
+        ),
+        "image": "images/pg3.jpg",
+        "choices": [
+            ("Start cleaning up your home before preparing for bed and ending your day. ", "end", "strategic"),
+            ("You think that you rather enjoyed your day, and start preparing for bed. ", "end", "affable"),
+            ("You clean your house thoroughly before carefully carrying out your bedtime routine. ", "end", "diffident"),
+            ("Stay up and continue before giving in to exhaustion and going to bed. ", "end", "capricious"),
         ],
     },
 
@@ -103,10 +115,39 @@ STORY = {
         ),
         "image": "images/pg3.jpg",
         "choices": [
-            ("Clean up your home while thinking of some activities for later. ", "end", "strategic"),
-            ("Simply take care of some messes in your home and focus on planning out the activities for later. ", "end", "affable"),
+            ("Clean up your home while thinking of some activities for later. ", "pres_end", "strategic"),
+            ("Simply take care of some messes in your home and focus on planning out the activities for later. ", "prea_end", "affable"),
         ],
     },
+
+    "pres_end": {
+        "text": (
+            "You have fun hanging out with your friends, and it is soon time for them to head home. \n "
+            "You say your goodbyes, then:"
+        ),
+        "image": "images/pg3.jpg",
+        "choices": [
+            ("Start cleaning up your home before preparing for bed and ending your day. ", "end", "strategic"),
+            ("Think that you rather enjoyed your day, and start preparing for bed. ", "end", "affable"),
+            ("Clean your house thoroughly before carefully carrying out your bedtime routine. ", "end", "diffident"),
+            ("Stay up to look at social media before giving in to exhaustion and going to bed. ", "end", "capricious"),
+        ],
+    },
+
+    "prea_end": {
+        "text": (
+            "You have fun hanging out with your friends, and it is soon time for them to head home. \n "
+            "You say your goodbyes, then:"
+        ),
+        "image": "images/pg3.jpg",
+        "choices": [
+            ("Start cleaning up your home before preparing for bed and ending your day. ", "end", "strategic"),
+            ("Think that you rather enjoyed your day, and start preparing for bed. ", "end", "affable"),
+            ("Clean your house thoroughly before carefully carrying out your bedtime routine. ", "end", "diffident"),
+            ("Stay up to look at social media before giving in to exhaustion and going to bed. ", "end", "capricious"),
+        ],
+    },
+
 
 
     "end": {},
