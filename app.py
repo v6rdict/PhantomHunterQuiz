@@ -178,9 +178,9 @@ STORY = {
         "image": "images/dollDialogue.jpg",
         "choices": [
             ("Them?", "path_who", "strategic"),
-            ("'What're you doing down here?", "path_ask", "instinct"),
-            ("'I see... are you okay though?'","path_comfort", "affable")
-            ("Run away.","path_run", "timid")
+            ("'What're you doing down here?'", "path_ask", "instinct"),
+            ("'I see... are you okay though?'", "path_comfort", "affable"),
+            ("Run away.","path_run", "timid"),
         ],
     },
 
@@ -195,7 +195,7 @@ STORY = {
         "image": "images/dollDialogue.jpg",
         "choices": [
             ("Leave", "path_leave", "strategic"),
-            ("Stay", "path_leave", "affable"),
+            ("Stay", "path_leave", "instinct"),
         ],
     },
 
