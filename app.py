@@ -1,9 +1,11 @@
 """
 Open http://127.0.0.1:5000 in a browser
 """
-from flask import Flask, render_template_string, url_for, abort
-
+import random
+from flask import Flask, render_template_string, url_for, abort, session, request, redirect
+ 
 app = Flask(__name__)
+app.secret_key = "123"
 
 # ---------------------------------------------------------------------------
 STORY = {
@@ -42,13 +44,13 @@ STORY = {
         ),
         "image": "images/pg4.jpg",
         "choices": [
-            ("Scream and run away", "path_timid"),
-            ("Stare blankly at it", "path_strat"),
-            ("Kick it away", "path_instinct"),
-            ("'Hey... Since when could dolls talk??'", "path_affable"),
+            ("Scream and run away", "path_t", "timid"),
+            ("Stare blankly at it", "path_s", "strategic"),
+            ("Kick it away", "path_i", "instinct"),
+            ("'Hey... Since when could dolls talk??'", "path_a", "affable"),
         ],
     },
-    "path_timid": {
+    "path_t": {
         "text": (
             "As you make a mad dash away from the doll, you see it slowly floating away into the mansion.\n "
             "You keep running but eventually stop when you've exhausted all your energy.\n "
@@ -56,8 +58,8 @@ STORY = {
         ),
         "image": "images/run.jpg",
         "choices": [
-            ("Keep trying to make your way back to the cabin", "path_loop"),
-            ("Continue up the path", "path_mansion"),
+            ("Keep trying to make your way back to the cabin", "path_loop", "timid"),
+            ("Continue up the path", "path_mansion", "instinct"),
         ],
     },
     "path_loop": {
@@ -67,7 +69,7 @@ STORY = {
         ),
         "image": "images/path_loop.jpg",
         "choices": [
-            ("Keep trying to make your way back to the cabin", "path_loop"),
+            ("Keep trying to make your way back to the cabin", "path_loop", "timid"),
             ("Continue up the path", "path_mansion"),
         ],
     },
@@ -81,19 +83,19 @@ STORY = {
             ("Chase after the doll and enter the mansion", "path_inMansion"),
         ],
     },
-    "path_strat": {
+    "path_s": {
         "text": (
             "As you stared blankly at the doll, weighing your options, it stared back- but only for a split second, "
             "before it floated away towards the mansion at an unfathomable speed, leaving you pondering. "
         ),
         "image": "images/dollaway.jpg",
         "choices": [
-            ("Chase after the doll and enter the mansion", "path_inMansion"),
-            ("Go back", "path_loop")
+            ("Chase after the doll and enter the mansion", "path_inMansion", "strategic"),
+            ("Go back", "path_loop", "strategic")
         ],
     },
     
-    "path_instinct": {
+    "path_i": {
         "text": (
             "THWAK! You kicked the doll with full force instinctively.\n"
             " 'WHY WOULD YOU DO THAT??!' "
@@ -101,20 +103,20 @@ STORY = {
         ),
         "image": "images/dollaway.jpg",
         "choices": [
-            ("Chase after the doll and enter the mansion", "path_inMansion"),
-            ("Go back", "path_loop")
+            ("Chase after the doll and enter the mansion", "path_inMansion", "instinct"),
+            ("Go back", "path_loop", "strategic")
         ],
     },
 
-    "path_affable": {
+    "path_a": {
         "text": (
             "'Ugh, people are so unimaginative.. I can fly too, you know!' and before you knew it, she had "
             "flown away into the mansion. "
         ),
         "image": "images/dollFly.jpg",
         "choices": [
-            ("Chase after the doll and enter the mansion", "path_inMansion"),
-            ("Go back", "path_loop")
+            ("Chase after the doll and enter the mansion", "path_inMansion", "affable"),
+            ("Go back", "path_loop", "timid")
         ],
     },
 
@@ -125,14 +127,14 @@ STORY = {
         ),
         "image": "images/papers.jpg",
         "choices": [
-            ("Read the papers", "path_papers"),
+            ("Read the papers", "path_papers",),
         ],
     },
     
     "path_papers": {
         "text": (
-            "You pick up the papers and read the headlines of the first one.\n\n "
-            "'I haven't seen those in a while.' You turn around and saw the doll again.\n 'You should leave. "
+            "You pick up the papers and read the headlines of the first one.\n "
+            "'I haven't seen those in a while.' You turn around and saw the doll again.\n\n 'You should leave. "
             "My father doesn't take kindly to strangers.' \n At that, you start to question her but she "
             "once again leaves before you could say anything. "
         ),
@@ -142,10 +144,76 @@ STORY = {
         ],
     },
 
-    "end_diffident": {"result": "diffident"},
-    "end_strategic": {"result": "strategic"},
-    "end_capricious": {"result": "capricious"},
-    "end_affable": {"result": "affable"},
+    "path_follow": {
+        "text": (
+            "The doll went down the stairs into a nearby room, with you tailing behind. \n "
+            "You look around the room, but there was no sign of the doll anymore. "
+        ),
+        "image": "images/room.jpg",
+        "choices": [
+            ("Keep going", "cont"),
+        ],
+    },
+
+    "cont": {
+        "text": (
+            "Eventually, you spot her near the end next to a chest that had been sealed away. \n "
+            "There appeared to have been attempts at opening it, but clearly to no avail. \n"
+            "Strange strangled sounds started coming from the doll, almost like crying, and you:"
+        ),
+        "image": "images/dollChestroom.jpg",
+        "choices": [
+            ("Carefully approach her with the aim of finding out more.", "path_approach", "strategic"),
+            ("Sit by her to offer her some comfort.", "path_comfort", "affable"),
+            ("Slowly walk away.", "path_walkAway", "timid"),
+            ("Ask her what she's up to.", "path_ask", "instinct"),
+        ],
+    },
+    
+    "path_approach": {
+        "text": (
+            "The doll realises your presence, and the strangled sounds ceased. \n "
+            "'You can leave now, you know. I told them to stop their silly tricks.' "
+        ),
+        "image": "images/dollDialogue.jpg",
+        "choices": [
+            ("Them?", "path_who", "strategic"),
+            ("'What're you doing down here?", "path_ask", "instinct"),
+            ("'I see... are you okay though?'","path_comfort", "affable")
+            ("Run away.","path_run", "timid")
+        ],
+    },
+
+    "path_comfort": {
+        "text": (
+            "'What?' she says, confused. \n"
+            "'Are you okay? You seem rather upset...' you said slowly. \n"
+            "She falls silent for a while, and you started to wonder if she had gone back to being inanimate,"
+            "when she finally spoke again. 'I'm fine, but you won't be if my father catches you. Please"
+            "just leave, as fast as you can.'"
+        ),
+        "image": "images/dollDialogue.jpg",
+        "choices": [
+            ("Leave", "path_leave", "strategic"),
+            ("Stay", "path_leave", "affable"),
+        ],
+    },
+
+    "path_comfort": {
+        "text": (
+            "'What?' she says, confused. \n"
+            "'Are you okay? You seem rather upset...' you said slowly. \n"
+            "She falls silent for a while, and you start to wonder if "
+        ),
+        "image": "images/dollDialogue.jpg",
+        "choices": [
+            ("Them?", "cont"),
+        ],
+    },
+
+
+
+    "end": {},
 }
 
 RESULTS = {
@@ -163,7 +231,7 @@ RESULTS = {
         "name": "Strategist",
         "title": "The Calculated",
         "blurb": (
-            "You paused to map the safest route, not out of fear, "
+            "You pause to map the safest route, not out of fear, "
             "but to make sure you're making the best choices you can. "
             "You work best with someone capricous. "
         ),
@@ -350,25 +418,43 @@ ENDING_HTML = """
 </div></body></html>
 """
 
-
+ 
 @app.route("/")
 def intro():
+    session.clear()  
     return render_template_string(INTRO_HTML, css=BASE_CSS)
-
-
+ 
+ 
 @app.route("/story/<node_id>")
 def story(node_id):
     node = STORY.get(node_id)
     if node is None:
         abort(404)
-
-    if "result" in node:
+ 
+    tag = request.args.get("tag")
+    if tag:
+        tags = session.get("tags", [])
+        tags.append(tag)
+        session["tags"] = tags
+ 
+    if not node.get("choices"):
+        tags = session.get("tags", [])
+        if not tags:
+            return redirect(url_for("intro"))
+ 
+        counts = {}
+        for t in tags:
+            counts[t] = counts.get(t, 0) + 1
+        top_score = max(counts.values())
+        winners = [t for t, n in counts.items() if n == top_score]
+        winner = random.choice(winners)  
+ 
         return render_template_string(
-            ENDING_HTML, css=BASE_CSS, result=RESULTS[node["result"]]
+            ENDING_HTML, css=BASE_CSS, result=RESULTS[winner]
         )
-
+ 
     return render_template_string(PASSAGE_HTML, css=BASE_CSS, node=node)
-
-
+ 
+ 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
