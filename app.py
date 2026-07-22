@@ -344,7 +344,7 @@ INTRO_HTML = """
 <title>What Role Do You Play In A Team?</title><style>{{ css }}</style></head>
 <body><div class="card">
   <p class="eyebrow">A choose-your-own-adventure quiz.</p>
-  <h1>What kind of person are you?</h1>
+  <h1>What Kind Of Team Player Are You?</h1>
   <p class="sub">There's no wrong answer, just be honest. </p>
   <a class="start-btn" href="{{ url_for('story', node_id='start') }}">Begin</a>
 </div></body></html>
