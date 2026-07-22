@@ -1,107 +1,89 @@
 """
-Run locally:
-    pip install -r requirements.txt
-    python app.py
+Open http://127.0.0.1:5000 in a browser
 """
-from flask import Flask, request, session, redirect, url_for, render_template_string
-import random
+from flask import Flask, render_template_string, url_for, abort
 
 app = Flask(__name__)
-app.secret_key = "123"  # needed for session cookies
 
 # ---------------------------------------------------------------------------
-# Quiz content — edit this section to make it your own quiz.
-# Each option maps to a constellation "code". Whichever code the person picks
-# most often determines their result.
-# ---------------------------------------------------------------------------
-QUESTIONS = [
-    {
-        "prompt": "You enter a dive bar, and surprisingly see a fish bartending. 'Whenever you're done staring, let me know what you'd like.'",
-        "image": "images/fishbartender.jpg",
-        "options": [
-            ("Sit down and order your drink", "orion"),
-            ("Call over a friend to see the freakshow", "ursa"),
-            ("Sit down quietly while apologising, and then order a drink", "draco"),
-            ("Laugh it off, sit down, and start chatting with the fish", "cass"),
+STORY = {
+    "start": {
+        "text": (
+            "You wake in a clearing under a sky you don't recognize. "
+            "Something is moving in the treeline, and it's getting closer."
+        ),
+        "image": "images/start.jpg",
+        "choices": [
+            ("Stand your ground and face it", "path_fight"),
+            ("Slip away before it gets any closer", "path_flee"),
         ],
     },
-    {
-        "prompt": "Your ideal weekend involves:",
-        "image": "images/.jpg",
-        "options": [
-            ("Something physical — a hike, a match, a project with your hands", "orion"),
-            ("A small gathering with people you trust", "ursa"),
-            ("Deep focus on something intricate, alone", "draco"),
-            ("Being seen somewhere fun, dressed for it", "cass"),
+    "path_fight": {
+        "text": (
+            "It isn't one shape — it's several, closing in from different "
+            "angles. You have seconds to decide how you meet them."
+        ),
+        "image": "images/path_fight.jpg",
+        "choices": [
+            ("Charge in alone", "end_orion"),
+            ("Call out for the others camped nearby", "end_ursa"),
         ],
     },
-    {
-        "prompt": "People come to you for:",
-        "image": "images/.jpg",
-        "options": [
-            ("A push to actually go do the thing", "orion"),
-            ("Comfort and steady support", "ursa"),
-            ("A well-thought-out plan", "draco"),
-            ("Energy and a good time", "cass"),
+    "path_flee": {
+        "text": (
+            "You slip into the dark. The path splits ahead — one way "
+            "vanishes into shadow, the other opens toward distant firelight."
+        ),
+        "image": "images/path_flee.jpg",
+        "choices": [
+            ("Map the safest route before moving", "end_draco"),
+            ("Head straight for the fire and the people around it", "end_cass"),
         ],
     },
-    {
-        "prompt": "Your biggest strength is probably:",
-        "image": "images/q4.jpg",
-        "options": [
-            ("Courage", "orion"),
-            ("Loyalty", "ursa"),
-            ("Patience", "draco"),
-            ("Confidence", "cass"),
-        ],
-    },
-    {
-        "prompt": "A rival outshines you at something. Your first instinct:",
-        "image": "images/q5.jpg",
-        "options": [
-            ("Compete harder, immediately", "orion"),
-            ("Check in on how everyone's feeling about it", "ursa"),
-            ("Study exactly how they did it", "draco"),
-            ("Shrug it off and make your own moment", "cass"),
-        ],
-    },
-]
+    # Endings have no "choices" key — instead they point at a RESULTS entry.
+    "end_diffident": {"result": "diffident"},
+    "end_strategic": {"result": "strategic"},
+    "end_capricious": {"result": "capricious"},
+    "end_affable": {"result": "affable"},
+}
 
 RESULTS = {
-    "orion": {
-        "name": "Orion",
-        "title": "The Hunter",
+    "diffident": {
+        "name": "Diffident",
+        "title": "The Timid",
         "blurb": (
-            "You move first and think while moving. Orion is the constellation "
-            "everyone can find in the sky because it doesn't hide, and neither "
-            "do you. You're at your best when there's something to chase."
+            "You lack the self confidence to face up to uncertainty,  "
+            "so you run from any situation without a guaranteed outcome. "
+            "Some call it strategic, others, cowardice."
+            "You work best with someone affable. "
         ),
     },
-    "ursa": {
-        "name": "Ursa Major",
-        "title": "The Guardian",
+    "strategic": {
+        "name": "Strategist",
+        "title": "The Calculated",
         "blurb": (
-            "The Great Bear stays visible all year, a fixed point people navigate "
-            "by. You're the steady one — dependable, protective, the friend who "
-            "shows up without being asked."
+            "You paused to map the safest route, not out of fear, "
+            "but to make sure you're making the best choices you can. "
+            "You work best with someone capricous. "
         ),
     },
-    "draco": {
-        "name": "Draco",
-        "title": "The Strategist",
+    "capricious": {
+        "name": "Capricious",
+        "title": "The Instinctive",
         "blurb": (
-            "Draco coils quietly around the pole star, patient and precise. You "
-            "think several moves ahead and rarely act until you're sure — which "
-            "is exactly why it usually works."
+            "Your trust in your instincts are steadfast, so "
+            "you like to dive in headfirst no matter the situation. "
+            "You work best with someone strategic. "
         ),
     },
-    "cass": {
-        "name": "Cassiopeia",
-        "title": "The Radiant",
+    "affable": {
+        "name": "Affable",
+        "title": "The Amiable",
         "blurb": (
-            "Cassiopeia is bright, unmistakable, a little vain — in the best way. "
-            "You bring energy into every room you enter and you're not sorry "
-            "about it."
+            "You may not always know what is the right thing to do, "
+            "but you always try your best not to assume the worst and "
+            "be a source of kindness. "
+            "You work best with someone diffident. "
         ),
     },
 }
@@ -111,7 +93,7 @@ BASE_CSS = """
     --bg: #0b1224;
     --bg-soft: #121a33;
     --line: #253158;
-    --gold: #e8b95c;
+    --gold: #23E628;
     --text: #eef1fb;
     --text-dim: #9aa3c7;
 }
@@ -159,8 +141,8 @@ body {
     margin: 0 0 10px 0;
 }
 h1 {
-    font-size: 21px;
-    line-height: 1.3;
+    font-size: 26px;
+    line-height: 1.4;
     margin: 0 0 6px 0;
 }
 p.sub {
@@ -169,18 +151,6 @@ p.sub {
     font-size: 14px;
     margin: 0 0 28px 0;
 }
-.progress {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 28px;
-}
-.dot {
-    height: 6px;
-    flex: 1;
-    border-radius: 3px;
-    background: var(--line);
-}
-.dot.filled { background: var(--gold); }
 .question-image {
     width: 100%;
     height: 220px;
@@ -190,8 +160,8 @@ p.sub {
     margin-bottom: 22px;
     display: block;
 }
-form { display: flex; flex-direction: column; gap: 12px; }
-button.option {
+.choices { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
+a.option, button.option {
     text-align: left;
     background: #0e1630;
     border: 1px solid var(--line);
@@ -201,10 +171,12 @@ button.option {
     font-family: 'Helvetica Neue', Arial, sans-serif;
     font-size: 15px;
     cursor: pointer;
+    text-decoration: none;
+    display: block;
     transition: border-color 0.15s ease, background 0.15s ease;
 }
-button.option:hover { border-color: var(--gold); background: #131c3c; }
-a.start-btn, button.start-btn {
+a.option:hover, button.option:hover { border-color: var(--gold); background: #131c3c; }
+a.start-btn {
     display: inline-block;
     margin-top: 8px;
     background: var(--gold);
@@ -215,8 +187,6 @@ a.start-btn, button.start-btn {
     padding: 14px 22px;
     border-radius: 10px;
     text-align: center;
-    border: none;
-    cursor: pointer;
     font-size: 15px;
 }
 .result-name {
@@ -238,98 +208,65 @@ a.start-btn, button.start-btn {
 INTRO_HTML = """
 <!doctype html><html><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>What Kind Of Phantom Hunter Are You?</title><style>{{ css }}</style></head>
+<title>What kind of Phantom Hunter are you?</title><style>{{ css }}</style></head>
 <body><div class="card">
-  <p class="eyebrow">A choose-your-own-adventure quiz</p>
-  <h1>What Kind Of Phantom Hunter Are You?</h1>
-  <p class="sub">Answer honestly. It takes about a minute.</p>
-  <a class="start-btn" href="{{ url_for('question', qnum=0) }}">Start</a>
+  <p class="eyebrow">A choose-your-own-adventure story.</p>
+  <h1>What kind of Phantom Hunter are you?</h1>
+  <p class="sub">Every choice leads somewhere different. There's no wrong answer, just be honest.</p>
+  <a class="start-btn" href="{{ url_for('story', node_id='start') }}">Begin</a>
 </div></body></html>
 """
 
-QUESTION_HTML = """
+PASSAGE_HTML = """
 <!doctype html><html><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Question {{ qnum + 1 }}</title><style>{{ css }}</style></head>
+<title>Your story</title><style>{{ css }}</style></head>
 <body><div class="card">
-  <p class="eyebrow">Question {{ qnum + 1 }} of {{ total }}</p>
-  <div class="progress">
-    {% for i in range(total) %}
-      <div class="dot {{ 'filled' if i <= qnum else '' }}"></div>
+  <p class="eyebrow">What do you do?</p>
+  {% if node.image %}
+    <img class="question-image" src="{{ url_for('static', filename=node.image) }}" alt="">
+  {% endif %}
+  <h1>{{ node.text }}</h1>
+  <div class="choices">
+    {% for label, next_node in node.choices %}
+      <a class="option" href="{{ url_for('story', node_id=next_node) }}">{{ label }}</a>
     {% endfor %}
   </div>
-  {% if question.image %}
-    <img class="question-image" src="{{ url_for('static', filename=question.image) }}" alt="">
-  {% endif %}
-  <h1>{{ question.prompt }}</h1>
-  <form method="POST" style="margin-top:20px;">
-    {% for label, code in question.options %}
-      <button class="option" type="submit" name="choice" value="{{ code }}">{{ label }}</button>
-    {% endfor %}
-  </form>
 </div></body></html>
 """
 
-RESULT_HTML = """
+ENDING_HTML = """
 <!doctype html><html><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Your result: {{ result.name }}</title><style>{{ css }}</style></head>
 <body><div class="card">
-  <p class="eyebrow">Your constellation is</p>
+  <p class="eyebrow">Your story ends here. You are: </p>
   <div class="result-name">{{ result.name }}</div>
   <div class="result-title">{{ result.title }}</div>
   <p class="blurb">{{ result.blurb }}</p>
-  <a class="start-btn" href="{{ url_for('intro') }}">Take it again</a>
+  <a class="start-btn" href="{{ url_for('intro') }}">Start over</a>
 </div></body></html>
 """
 
 
 @app.route("/")
 def intro():
-    session.clear()
     return render_template_string(INTRO_HTML, css=BASE_CSS)
 
 
-@app.route("/q/<int:qnum>", methods=["GET", "POST"])
-def question(qnum):
-    answers = session.get("answers", [])
+@app.route("/story/<node_id>")
+def story(node_id):
+    node = STORY.get(node_id)
+    if node is None:
+        abort(404)
 
-    if request.method == "POST":
-        choice = request.form.get("choice")
-        if choice:
-            answers.append(choice)
-            session["answers"] = answers
-        return redirect(url_for("question", qnum=qnum + 1))
+    if "result" in node:
+        return render_template_string(
+            ENDING_HTML, css=BASE_CSS, result=RESULTS[node["result"]]
+        )
 
-    if qnum >= len(QUESTIONS):
-        return redirect(url_for("result"))
-
-    return render_template_string(
-        QUESTION_HTML,
-        css=BASE_CSS,
-        qnum=qnum,
-        total=len(QUESTIONS),
-        question=QUESTIONS[qnum],
-    )
-
-
-@app.route("/result")
-def result():
-    answers = session.get("answers", [])
-    if len(answers) < len(QUESTIONS):
-        return redirect(url_for("intro"))
-
-    counts = {}
-    for code in answers:
-        counts[code] = counts.get(code, 0) + 1
-    top_score = max(counts.values())
-    winners = [code for code, n in counts.items() if n == top_score]
-    winner = random.choice(winners)  # tie-break randomly
-
-    return render_template_string(RESULT_HTML, css=BASE_CSS, result=RESULTS[winner])
+    return render_template_string(PASSAGE_HTML, css=BASE_CSS, node=node)
 
 
 if __name__ == "__main__":
-    # host="0.0.0.0" makes it reachable from other devices on your network,
-    # which is useful for testing the QR code on your phone before deploying.
     app.run(host="0.0.0.0", port=5000, debug=True)
