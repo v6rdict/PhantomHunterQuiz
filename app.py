@@ -195,11 +195,11 @@ STORY = {
 RESULTS = {
     "diffident": {
         "name": "Completer",
-        "title": "The Driven",
+        "title": "The Detail-Oriented",
         "blurb": (
             "You lack the self confidence to face up to uncertainty,  "
             "so you feel the need to have to check through things thoroughly when faced with any task at hand. \n"
-            "You work best with someone affable, who can help guide you through your reservations. "
+            "You work best with a coordinator, who can help guide you through your reservations. "
         ),
     },
     "strategic": {
@@ -207,7 +207,7 @@ RESULTS = {
         "title": "The Pragmatic",
         "blurb": (
             "You like to think things through and make sure that you're making the most efficient choices you can to reach your goals. \n "
-            "You work best with someone capricous, who can follow your strategic mind. "
+            "You work best with a implementer, who can follow your strategic mind. "
         ),
     },
     "capricious": {
@@ -215,7 +215,7 @@ RESULTS = {
         "title": "The Action-Oriented",
         "blurb": (
             "You like to keep things simple and do whatever you feel like doing to keep busy. \n "
-            "You work best with someone strategic, whose strategic mind can help guide you. "
+            "You work best with someone pragmatic, whose strategic mind can help guide you. "
         ),
     },
     "affable": {
@@ -223,7 +223,7 @@ RESULTS = {
         "title": "The People-Oriented",
         "blurb": (
             "You like to go through life with a postive mindset and take things in stride, making you ideal for social settings. \n "
-            "You work best with someone diffident, who responds well to your positive outlook. "
+            "You work best with someone detail oriented, who responds well to your positive outlook. "
         ),
     },
 }
