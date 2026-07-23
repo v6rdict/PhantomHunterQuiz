@@ -58,7 +58,7 @@ STORY = {
             ("You want to stay home to work on your hobbies.", "path_hobby", "diffident"),
             ("You should probably just get up and start your day.", "path_s", "strategic"),
             ("You feel like reaching out to some friends for a get together.", "path_friends", "affable"),
-            ("You just want to lay in bed and scroll social media on your phone.", "path_scroll", "capricious"),
+            ("You need to get out of the house and do something.", "path_scroll", "capricious"),
         ],
     },
 
@@ -139,7 +139,7 @@ STORY = {
     "prec_end": {
         "text": (
             "You get on the next bus and manage to get a seat. \n "
-            "You look out the window and watch the city pass by. Eventually, you get off somewhere unfamiliar to you, and start exploring until "
+            "Eventually, you get off somewhere unfamiliar to you, and start exploring until "
             "it was starting to get dark, at which you decided to head back home. Once home:"
         ),
         "choices": [
