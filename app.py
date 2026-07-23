@@ -136,6 +136,18 @@ STORY = {
         ],
     },
 
+    "preago_end": {
+        "text": (
+            "You walk around your neighbourhood at a leisurely pace, taking in the fresh air. \n "
+            "After a short while, you start heading home. "
+        ),
+        "choices": [
+            ("You think that you rather enjoyed your day, and start preparing for bed. ", "end", "affable"),
+            ("You clean your house thoroughly before carefully carrying out your bedtime routine. ", "end", "diffident"),
+            ("You stay up to look at social media before giving in to exhaustion and going to bed. ", "end", "capricious"),
+        ],
+    },
+
     "prec_end": {
         "text": (
             "You get on the next bus and manage to get a seat. \n "
