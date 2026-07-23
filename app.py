@@ -58,7 +58,7 @@ STORY = {
             ("You want to stay home to work on your hobbies.", "path_hobby", "diffident"),
             ("You should probably just get up and start your day.", "path_s", "strategic"),
             ("You feel like reaching out to some friends for a get together.", "path_friends", "affable"),
-            ("You need to get out of the house and do something.", "path_scroll", "capricious"),
+            ("You need to get out of the house and do something.", "path_go", "capricious"),
         ],
     },
 
