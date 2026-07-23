@@ -70,7 +70,7 @@ STORY = {
         "image": "images/afterwake.jpg",
         "choices": [
             ("Stay at home and work on your hobbies. ", "path_hobby", "diffident"),
-            ("Get some work done. ", "end", "strategic"),
+            ("Get some work done. ", "path_sure", "strategic"),
             ("Call up some friends for a get together. ", "path_friends", "affable"),
             ("Get out of the house to do something. ", "path_go", "capricious"),
         ],
@@ -120,7 +120,7 @@ STORY = {
 
     "path_sure": {
         "text": (
-            "You get started on your work after lunch, and day dissolved into night. \n"
+            "You get started on your work after lunch, and day dissolves into night. \n"
             "When you realised it was almost dark out, you: "
         ),
         "choices": [
@@ -190,7 +190,7 @@ RESULTS = {
         "title": "The Driven",
         "blurb": (
             "You lack the self confidence to face up to uncertainty,  "
-            "so you always have to check through things thoroughly when faced with any task at hand. \n"
+            "so you feel the need to have to check through things thoroughly when faced with any task at hand. \n"
             "You work best with someone affable, who can help guide you through your reservations. "
         ),
     },
@@ -206,7 +206,7 @@ RESULTS = {
         "name": "Implementer",
         "title": "The Action-Oriented",
         "blurb": (
-            "You like to keep things simple and do whatever you feel like doing. \n "
+            "You like to keep things simple and do whatever you feel like doing to keep busy. \n "
             "You work best with someone strategic, whose strategic mind can help guide you. "
         ),
     },
@@ -214,7 +214,7 @@ RESULTS = {
         "name": "Coordinator",
         "title": "The People-Oriented",
         "blurb": (
-            "You like to go through life with a postive mindset and take things in stride. \n "
+            "You like to go through life with a postive mindset and take things in stride, making you ideal for social settings. \n "
             "You work best with someone diffident, who responds well to your positive outlook. "
         ),
     },
@@ -373,7 +373,7 @@ ENDING_HTML = """
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Your result: {{ result.name }}</title><style>{{ css }}</style></head>
 <body><div class="card">
-  <p class="eyebrow">Your story ends here. You are: </p>
+  <p class="eyebrow">Your story ends here. You are the: </p>
   <div class="result-name">{{ result.name }}</div>
   <div class="result-title">{{ result.title }}</div>
   <p class="blurb">{{ result.blurb }}</p>
