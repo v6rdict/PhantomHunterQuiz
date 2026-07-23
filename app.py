@@ -81,17 +81,13 @@ STORY = {
             "What would you like to do? "
         ),
         "choices": [
-            ("Get some reading done ", "cnext", "neutral"),
-            ("Do some crafts ", "cnext", "diffident"),
-            ("Program something ", "cnext", "neutral"),
-            ("Sew ", "cnext", "diffident"),
-            ("Embroidery ", "cnext", "diffident"),
-            ("Paint ", "cnext", "diffident"),
-            ("Do some puzzles ", "cnext", "strategic"),
-            ("Bake ", "cnext", "strategic"),
-            ("Cook ", "cnext", "capricious"),
-            ("Journal ", "cnext", "diffident"),
-            ("Scrapbook ", "cnext", "diffident"),
+            ("Reading ", "cnext", "neutral"),
+            ("Crafting ", "cnext", "diffident"),
+            ("Programming ", "cnext", "strategic"),
+            ("Puzzles ", "cnext", "strategic"),
+            ("Music", "cnext", "capricious"),
+            ("Others", "cnext", "neutral"),
+
         ],
     },
 
